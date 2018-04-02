@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>ppt-ui</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.m2e.core.maven2Builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>org.eclipse.m2e.core.maven2Nature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>images</name>
+			<type>2</type>
+			<location>/home/madalina/Documents/POLI III/SD/Assignments/ppt/ppt-ui/images</location>
+		</link>
+		<link>
+			<name>src/main/java/com/pingpong/1.jpg</name>
+			<type>1</type>
+			<location>/home/madalina/Documents/POLI III/SD/Assignments/ppt/ppt-ui/src/main/java/com/pingpong/1.jpg</location>
+		</link>
+		<link>
+			<name>src/main/java/com/pingpong/2.jpg</name>
+			<type>1</type>
+			<location>/home/madalina/Documents/POLI III/SD/Assignments/ppt/ppt-ui/src/main/java/com/pingpong/2.jpg</location>
+		</link>
+		<link>
+			<name>src/main/java/com/pingpong/3.jpg</name>
+			<type>1</type>
+			<location>/home/madalina/Documents/POLI III/SD/Assignments/ppt/ppt-ui/src/main/java/com/pingpong/3.jpg</location>
+		</link>
+		<link>
+			<name>src/main/java/com/pingpong/4.jpg</name>
+			<type>1</type>
+			<location>/home/madalina/Documents/POLI III/SD/Assignments/ppt/ppt-ui/src/main/java/com/pingpong/4.jpg</location>
+		</link>
+		<link>
+			<name>src/main/java/com/pingpong/pp.jpg</name>
+			<type>1</type>
+			<location>/home/madalina/Documents/POLI III/SD/Assignments/ppt/ppt-ui/images/pp.jpg</location>
+		</link>
+	</linkedResources>
+</projectDescription>

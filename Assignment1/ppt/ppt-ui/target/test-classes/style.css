@@ -1,0 +1,9 @@
+    #pane{
+        -fx-background-image: url("https://cdn.dribbble.com/users/730703/screenshots/3707872/peter-greenwood-folio-illustration-table-tennis-d_1x.jpg");
+        -fx-background-repeat: stretch;
+        -fx-background-size: 400 300;
+        -fx-background-position: center center;
+        -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+        -fx-font-size: 8pt;
+    	-fx-font-family: "Courier New";
+    }
