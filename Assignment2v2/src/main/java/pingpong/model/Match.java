@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "match")
+@Table(name = "matches")
 public class Match {
 
     @Id
@@ -19,7 +19,7 @@ public class Match {
     @OneToMany(mappedBy="match")
     private List<Game> games = new ArrayList<Game>();
 
-    public Match(){};
+    public Match(){}
 
     public Match(Integer id, Tournament tournament, List<Game> games) {
         this.id = id;

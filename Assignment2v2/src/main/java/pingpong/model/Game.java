@@ -3,7 +3,7 @@ package pingpong.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "game")
+@Table(name = "games")
 public class Game {
 
     @Id
@@ -14,7 +14,7 @@ public class Game {
     @JoinColumn(name="match_id", nullable=false)
     private Match match;
 
-    public Game(){};
+    public Game(){}
 
     public Game(Integer id, Match match) {
         this.id = id;
