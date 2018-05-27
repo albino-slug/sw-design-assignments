@@ -24,5 +24,7 @@ public interface TournamentService {
 
     Boolean addUserById(Integer tournamentId, Integer userId);
 
-    public void removeUserById(Integer tournamentId, Integer userId);
+    void removeUserById(Integer tournamentId, Integer userId);
+
+    List<Tournament> findTournamentsByUserId(Integer id);
 }

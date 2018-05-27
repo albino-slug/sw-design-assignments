@@ -1,4 +1,4 @@
-//package pingpong.controller;
-//
-//public class UserViewMatchesController {
-//}
+package pingpong.controller;
+
+public class UserViewMatchesController {
+}

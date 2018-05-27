@@ -157,6 +157,14 @@ public class Tournament {
         }
     }
 
+    public List<User> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<User> players) {
+        this.players = players;
+    }
+
     @Override
     public String toString() {
         return "Tournament{" +

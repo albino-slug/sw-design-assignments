@@ -30,8 +30,8 @@ public interface UserService {
 
     Optional<Integer> getAccountBalanceById(Integer userId);
 
-  //  Boolean addTournamentById(Integer userId, Integer tournamentId);
+    Boolean addTournamentById(Integer userId, Integer tournamentId);
 
-  //  void removeTournamentById(Integer userId, Integer tournamentId);
+    void removeTournamentById(Integer userId, Integer tournamentId);
 
 }

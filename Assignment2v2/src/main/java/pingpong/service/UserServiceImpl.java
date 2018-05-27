@@ -2,30 +2,24 @@ package pingpong.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pingpong.DAO.UserDAO;
+import pingpong.DAO.factory.DAOFactory;
 import pingpong.model.Role;
+import pingpong.model.Tournament;
 import pingpong.model.User;
-import pingpong.repo.UserDAO;
-import pingpong.repo.factory.DAOFactory;
 import pingpong.repository.TournamentRepo;
 import pingpong.repository.UserRepo;
 
 import java.util.List;
 import java.util.Optional;
-import pingpong.repo.factory.DAOFactory.Type;
 
 @Service
 public class UserServiceImpl implements UserService {
-  //  @Autowired
-    private UserDAO userRepo;
 
-//    @Autowireds
-//    private TournamentRepo tournamentRepo;
-
-    public UserServiceImpl(){
-
-
-        userRepo = DAOFactory.getInstance(DAOFactory.Type.HIBERNATE).getUserDao();
-    }
+//    UserDAO userRepo;
+//    public UserServiceImpl(){
+//        userRepo = DAOFactory.getInstance(DAOFactory.Type.HIBERNATE).getUserDao();
+//    }
 
     @Override
     public List<User> findAll() {
@@ -156,53 +150,72 @@ public class UserServiceImpl implements UserService {
         return accountBalance;
     }
 
-//    @Override
-//    public Boolean addTournamentById(Integer userId, Integer tournamentId) {
-//        if (tournamentId.intValue() < 0 || userId.intValue() < 0){
-//            return Boolean.FALSE;
-//        }
-//        else {
-//            try {
-//                if (tournamentRepo.findById(tournamentId).isPresent()){
-//                    User user = userRepo.findById(userId).get();
-//                    user.enrollInTournament(tournamentRepo.findById(tournamentId).get());
-//                    userRepo.save(user);
-//                    System.out.println("Tournament " + tournamentId + " has been added to user " + userId);
-//                }
-//                else {
-//                    return Boolean.FALSE;
-//                }
-//            }
-//            catch (Exception e) {
-//                e.printStackTrace();
-//                return Boolean.FALSE;
-//            }
-//        }
-//        return Boolean.TRUE;
-//    }
+    @Override
+    public Boolean addTournamentById(Integer userId, Integer tournamentId) {
+        if (tournamentId.intValue() < 0 || userId.intValue() < 0){
+            return Boolean.FALSE;
+        }
+        else {
+            try {
+                if (tournamentRepo.findById(tournamentId).isPresent()){
+                    User user = userRepo.findById(userId).get();
+                    Tournament tournament = tournamentRepo.findById(tournamentId).get();
+                    user.enrollInTournament(tournament);
+                    if (user.getAccount() >= tournament.getTournamentPrice()){
+                        user.setAccount(user.getAccount() - tournamentRepo.findById(tournamentId).get().getTournamentPrice());
+                        userRepo.save(user);
+                        System.out.println("Tournament " + tournamentId + " has been added to user " + userId);
+                    }
+                    else {
+                        System.out.println("[Error] user " + userId + " does not possess the necessary funds for this transaction");
 
-//    @Override
-//    public void removeTournamentById(Integer userId, Integer tournamentId) {
-//        if (tournamentId.intValue() < 0 || userId.intValue() < 0){
-//            return;
-//        }
-//        else {
-//            try {
-//                if (tournamentRepo.findById(tournamentId).isPresent()){
-//                    User user = userRepo.findById(userId).get();
-//                    user.disenrollFromTournament(tournamentRepo.findById(tournamentId).get());
-//                    userRepo.save(user);
-//                    System.out.println("Tournament " + tournamentId + " has been removed from user " + userId);
-//                }
-//                else {
-//                    return;
-//                }
-//            }
-//            catch (Exception e) {
-//                e.printStackTrace();
-//                return;
-//            }
-//        }
-//    }
+                    }
+
+                }
+                else {
+                    return Boolean.FALSE;
+                }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                return Boolean.FALSE;
+            }
+        }
+        return Boolean.TRUE;
+    }
+
+    @Override
+    public void removeTournamentById(Integer userId, Integer tournamentId) {
+        if (tournamentId.intValue() < 0 || userId.intValue() < 0){
+            return;
+        }
+        else {
+            try {
+                if (tournamentRepo.findById(tournamentId).isPresent()){
+                    User user = userRepo.findById(userId).get();
+                    user.disenrollFromTournament(tournamentRepo.findById(tournamentId).get());
+                    userRepo.save(user);
+                    System.out.println("Tournament " + tournamentId + " has been removed from user " + userId);
+                }
+                else {
+                    return;
+                }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                return;
+            }
+        }
+    }
+
+
+
+    @Autowired
+    private TournamentRepo tournamentRepo;
+
+    @Autowired
+    private UserRepo userRepo;
+
+    //UserServiceImpl userServiceimpl = new UserServiceImpl();
 }
 

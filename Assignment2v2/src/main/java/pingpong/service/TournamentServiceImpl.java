@@ -130,4 +130,18 @@ public class TournamentServiceImpl implements TournamentService {
             }
         }
     }
+
+    @Override
+    public List<Tournament> findTournamentsByUserId(Integer id) {
+        List<Tournament> tournaments = findAll();
+        List<Tournament> wantedTournaments = new ArrayList<>();
+
+        for (Tournament tournament : tournaments){
+            if (tournament.getPlayers().contains(userRepo.findById(id).get())){
+                wantedTournaments.add(tournament);
+            }
+        }
+
+        return wantedTournaments;
+    }
 }
