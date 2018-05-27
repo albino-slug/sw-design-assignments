@@ -61,4 +61,24 @@ public class AdminCrudUsersController {
         updateUserList(model, userService.findAll());
         return "admin_crud_users";
     }
+
+    @RequestMapping(value = "/admin_crud_users", method = RequestMethod.POST, params = "action=addSumToUserAccount")
+    public String addToAccount(@RequestParam("id") Integer id, @RequestParam("account") Integer sum, Model model){
+        Boolean transactionResult = userService.addSumToUserAccountById(id, sum);
+        if (transactionResult == Boolean.FALSE){
+            model.addAttribute("message", "Error while adding money to user account");
+        }
+        updateUserList(model, userService.findAll());
+        return "admin_crud_users";
+    }
+
+    @RequestMapping(value = "/admin_crud_users", method = RequestMethod.POST, params = "action=withdrawSumFromUserAccount")
+    public String withdrawFromAccount(@RequestParam("id") Integer id, @RequestParam("account") Integer sum, Model model){
+        Boolean transactionResult = userService.withdrawSumFromUserAccountById(id, sum);
+        if (transactionResult == Boolean.FALSE){
+            model.addAttribute("message", "Error while withdrawing money from user account");
+        }
+        updateUserList(model, userService.findAll());
+        return "admin_crud_users";
+    }
 }

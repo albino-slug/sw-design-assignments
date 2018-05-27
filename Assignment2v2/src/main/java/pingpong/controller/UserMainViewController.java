@@ -29,4 +29,7 @@ public class UserMainViewController {
 
     @RequestMapping(value = "/user_main_view", method = RequestMethod.POST, params = "redirect=toUserViewMatches")
     public String switchToUserViewMatches() { return "redirect:/user_view_matches"; }
+
+    @RequestMapping(value = "/user_main_view", method = RequestMethod.POST, params = "redirect=toUserViewAccountBalance")
+    public String switchToUserViewAccount() { return "redirect:/user_view_account_balance"; }
 }

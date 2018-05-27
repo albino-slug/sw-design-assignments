@@ -24,4 +24,10 @@ public interface UserService {
 
     Optional<User> findByUsernameAndPassword(String username, String password);
 
+    Boolean addSumToUserAccountById(Integer userId, Integer sum);
+
+    Boolean withdrawSumFromUserAccountById(Integer userId, Integer sum);
+
+    Optional<Integer> getAccountBalanceById(Integer userId);
+
 }

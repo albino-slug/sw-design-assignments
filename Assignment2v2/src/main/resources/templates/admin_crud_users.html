@@ -32,20 +32,22 @@
 
     <th>
     <td>ID</td>
+    <td>username</td>
+    <td>password</td>
+    <td>account</td>
     <td>role</td>
     <td>age</td>
     <td>email</td>
-    <td>username</td>
-    <td>password</td>
     </th>
     <tr th:each="user : ${ userList }">
         <td></td>
         <td th:text="${ user.id }">ID</td>
+        <td th:text="${ user.username }">username</td>
+        <td th:text="${ user.password }">password</td>
+        <td th:text="${ user.account }">account</td>
         <td th:text="${ user.role }">role</td>
         <td th:text="${ user.age }">age</td>
         <td th:text="${ user.email }">email</td>
-        <td th:text="${ user.username }">username</td>
-        <td th:text="${ user.password }">password</td>
     </tr>
 </table>
 <form th:action="@{/admin_crud_users}" th:object="${user}" modelAttribute="user" method="post" class="form-horizontal col-sm-6 col-sm-offset-3">
@@ -59,7 +61,7 @@
         <tr>
             <td>username:</td>
             <td><input type="text" th:field="${user.username}" /></td>
-            <td th:if="${#fields.hasErrors('username')}" th:errors="${user.username}">username Error</td>
+            <td th:if="${#fields.hasErrors('username')}" th:errors="${user.username}">Username Error</td>
         </tr>
         <tr>
             <td>Password:</td>
@@ -67,12 +69,17 @@
             <td th:if="${#fields.hasErrors('password')}" th:errors="${user.password}">Password Error</td>
         </tr>
         <tr>
+            <td>Account:</td>
+            <td><input type="number" th:field="${user.account}" /></td>
+            <td th:if="${#fields.hasErrors('account')}" th:errors="${user.account}">Account Error</td>
+        </tr>
+        <tr>
             <td>Age:</td>
             <td><input type="number" th:field="${user.age}" /></td>
             <td th:if="${#fields.hasErrors('age')}" th:errors="${user.age}">Age Error</td>
         </tr>
         <tr>
-            <td>Age:</td>
+            <td>Email:</td>
             <td><input type="text" th:field="${user.email}" /></td>
             <td th:if="${#fields.hasErrors('email')}" th:errors="${user.email}">Email Error</td>
         </tr>
@@ -98,6 +105,18 @@
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-10">
             <button class="btn btn-primary" type="submit" name="action" value="listAllUsers">List All Users</button>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-10">
+            <button class="btn btn-primary" type="submit" name="action" value="addSumToUserAccount">Add Money To User Account</button>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-10">
+            <button class="btn btn-primary" type="submit" name="action" value="withdrawSumFromUserAccount">Withdraw Money From User Account</button>
         </div>
     </div>
 

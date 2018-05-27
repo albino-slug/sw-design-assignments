@@ -71,5 +71,76 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findByUsernameAndPassword(String username, String password) {
         return userRepo.findByUsernameAndPassword(username, password);
     }
+
+    public Boolean addSumToUserAccountById(Integer userId, Integer sum){
+        if (userId.intValue() < 0){
+            return Boolean.FALSE;
+        }
+        else {
+            try {
+                if (userRepo.findById(userId).isPresent()){
+                    User user = userRepo.findById(userId).get();
+                    user.addToAccount(sum);
+                    userRepo.save(user);
+                    System.out.println("Sum " + sum + " has been added to user's " + userId + " account");
+                }
+                else {
+                    return Boolean.FALSE;
+                }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                return Boolean.FALSE;
+            }
+        }
+        return Boolean.TRUE;
+    }
+
+    public Boolean withdrawSumFromUserAccountById(Integer userId, Integer sum){
+        if (userId.intValue() < 0){
+            return Boolean.FALSE;
+        }
+        else {
+            try {
+                if (userRepo.findById(userId).isPresent()){
+                    User user = userRepo.findById(userId).get();
+                    user.withdrawFromAccount(sum);
+                    userRepo.save(user);
+                    System.out.println("Sum " + sum + " has been withdrawn from user's " + userId + " account");
+                }
+                else {
+                    return Boolean.FALSE;
+                }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                return Boolean.FALSE;
+            }
+        }
+        return Boolean.TRUE;
+    }
+
+    public Optional<Integer> getAccountBalanceById(Integer userId){
+        Optional<Integer> accountBalance;
+        if (userId.intValue() < 0){
+            return Optional.empty();
+        }
+        else {
+            try {
+                if (userRepo.findById(userId).isPresent()){
+                    User user = userRepo.findById(userId).get();
+                    accountBalance = Optional.ofNullable(user.getAccount());
+                }
+                else {
+                    return Optional.empty();
+                }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                return Optional.empty();
+            }
+        }
+        return accountBalance;
+    }
 }
 

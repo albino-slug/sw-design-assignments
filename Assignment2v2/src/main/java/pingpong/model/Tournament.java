@@ -36,17 +36,22 @@ public class Tournament {
     @Enumerated(EnumType.STRING)
     private TournamentFee tournamentFee;
 
+    @Column
+    @NotNull
+    private Integer tournamentPrice;
+
     @OneToMany(mappedBy="tournament")
     private List<Match> matches = new ArrayList<Match>();
 
     public Tournament(){}
 
-    public Tournament(Integer id, String name, Date endDate, Date startDate, TournamentFee tournamentFee) {
+    public Tournament(Integer id, String name, Date endDate, Date startDate, TournamentFee tournamentFee, Integer tournamentPrice) {
         this.id = id;
         this.name = name;
         this.endDate = endDate;
         this.startDate = startDate;
         this.tournamentFee = tournamentFee;
+        this.tournamentPrice = tournamentPrice;
     }
 
     public Integer getId() {
@@ -89,6 +94,37 @@ public class Tournament {
         this.tournamentFee = tournamentFee;
     }
 
+    public Integer getTournamentPrice() {
+        return tournamentPrice;
+    }
+
+    public void setTournamentPrice(Integer tournamentPrice) {
+        this.tournamentPrice = tournamentPrice;
+    }
+
+    public List<Match> getMatches() {
+        return matches;
+    }
+
+    public void setMatches(List<Match> matches) {
+        this.matches = matches;
+    }
+
+    public TournamentCategory getTournamentCategory(){
+        Date currentDate = new Date();
+        if (currentDate.compareTo(this.startDate) >= 0 && currentDate.compareTo(this.endDate) < 0){
+            return TournamentCategory.ONGOING;
+        }
+        else if (currentDate.compareTo(this.startDate) < 0 && currentDate.compareTo(this.endDate) < 0){
+            return TournamentCategory.UPCOMING;
+        }
+        else if (currentDate.compareTo(this.startDate) > 0 && currentDate.compareTo(this.endDate) > 0){
+            return TournamentCategory.FINISHED;
+        }
+        System.out.println("[ERROR] in processing tournament time category");
+        return TournamentCategory.FINISHED;
+    }
+
     @Override
     public String toString() {
         return "Tournament{" +
@@ -97,6 +133,7 @@ public class Tournament {
                 ", endDate=" + endDate +
                 ", startDate=" + startDate +
                 ", tournamentFee=" + tournamentFee +
+                ", tournamentPrice=" + tournamentPrice +
                 '}';
     }
 }
