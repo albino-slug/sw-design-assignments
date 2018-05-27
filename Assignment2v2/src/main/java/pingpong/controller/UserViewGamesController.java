@@ -1,7 +1,7 @@
-package pingpong.controller;
-
-import org.springframework.stereotype.Controller;
-
-@Controller
-public class UserViewGamesController {
-}
+//package pingpong.controller;
+//
+//import org.springframework.stereotype.Controller;
+//
+//@Controller
+//public class UserViewGamesController {
+//}

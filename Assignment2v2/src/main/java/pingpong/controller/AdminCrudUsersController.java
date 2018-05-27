@@ -37,6 +37,7 @@ public class AdminCrudUsersController {
     public String addNewUser(@Validated @ModelAttribute("user") User user, BindingResult bindingResult, Model model)
     {
         if (!bindingResult.hasErrors()){
+
             Boolean saveResult = userService.save(user);
             if (saveResult == Boolean.FALSE){
                 model.addAttribute("message", "Error while saving user");
