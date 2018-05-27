@@ -5,10 +5,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import pingpong.model.Tournament;
 import pingpong.model.TournamentCategory;
 import pingpong.model.TournamentFee;
+import pingpong.model.User;
 import pingpong.service.TournamentService;
+import pingpong.service.UserService;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -18,6 +21,9 @@ public class UserViewTournamentsController {
 
     @Autowired
     private TournamentService tournamentService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "user_view_tournaments", method = RequestMethod.GET)
     public String tournamentIndex(Model model, HttpSession httpSession) {
@@ -76,6 +82,28 @@ public class UserViewTournamentsController {
         updateTournamentList(model, tournamentService.findByTournamentFee(TournamentFee.PAID));
         return "user_view_tournaments";
     }
+
+//    @RequestMapping(value = "/user_view_tournaments", method = RequestMethod.POST, params = "action=enrollInTournament")
+//    public String attendEvent(@RequestParam("id") Integer id, Model model, HttpSession httpSession){
+//        User user = userService.findById(Integer.parseInt(httpSession.getAttribute("userId").toString())).get();
+//        if(tournamentService.addUserById(id, user.getId())){
+//            userService.addTournamentById(user.getId(), id);
+//        }
+//        else {
+//            model.addAttribute("message", "");
+//        }
+//        updateTournamentList(model, tournamentService.findAll());
+//        return "user_view_tournaments";
+//    }
+//
+//    @RequestMapping(value = "/user_view_tournaments", method = RequestMethod.POST, params = "action=disenrollFromTournament")
+//    public String dropCourse(@RequestParam("id") Integer id, Model model, HttpSession httpSession){
+//        User user = userService.findById(Integer.parseInt(httpSession.getAttribute("userId").toString())).get();
+//        tournamentService.removeUserById(id, user.getId());
+//        userService.removeTournamentById(user.getId(), id);
+//        updateTournamentList(model, tournamentService.findTournamentsByUserId(user.getId()));
+//        return "user_view_tournaments";
+//    }
 
     //TODO list all tournaments in which logged user is enrolled
 }

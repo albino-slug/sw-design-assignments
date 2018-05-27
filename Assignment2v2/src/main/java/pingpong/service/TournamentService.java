@@ -21,4 +21,8 @@ public interface TournamentService {
     List<Tournament> findByTournamentFee(TournamentFee tournamentFee);
 
     Optional<Tournament> findByTournamentName(String name);
+
+    Boolean addUserById(Integer tournamentId, Integer userId);
+
+    public void removeUserById(Integer tournamentId, Integer userId);
 }

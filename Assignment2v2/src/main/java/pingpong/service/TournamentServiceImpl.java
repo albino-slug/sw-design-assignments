@@ -6,6 +6,7 @@ import pingpong.model.Tournament;
 import pingpong.model.TournamentCategory;
 import pingpong.model.TournamentFee;
 import pingpong.repository.TournamentRepo;
+import pingpong.repository.UserRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,9 @@ import java.util.Optional;
 public class TournamentServiceImpl implements TournamentService {
     @Autowired
     private TournamentRepo tournamentRepo;
+
+    @Autowired
+    private UserRepo userRepo;
 
     @Override
     public List<Tournament> findAll() {
@@ -76,5 +80,54 @@ public class TournamentServiceImpl implements TournamentService {
     @Override
     public Optional<Tournament> findByTournamentName(String name) {
         return tournamentRepo.findByName(name);
+    }
+
+    @Override
+    public Boolean addUserById(Integer tournamentId, Integer userId) {
+        if (tournamentId.intValue() < 0 || userId.intValue() < 0){
+            return Boolean.FALSE;
+        }
+        else {
+            try {
+                if (tournamentRepo.findById(tournamentId).isPresent()){
+                    Tournament tournament = tournamentRepo.findById(tournamentId).get();
+                    tournament.addNewPlayer(userRepo.findById(userId).get());
+                    tournamentRepo.save(tournament);
+                    System.out.println("User " + userId + " has been added to tournament " + tournamentId);
+                }
+                else {
+                    return Boolean.FALSE;
+                }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                return Boolean.FALSE;
+            }
+        }
+        return Boolean.TRUE;
+    }
+
+    @Override
+    public void removeUserById(Integer tournamentId, Integer userId){
+        if (tournamentId.intValue() < 0 || userId.intValue() < 0){
+            return ;
+        }
+        else {
+            try {
+                if (tournamentRepo.findById(tournamentId).isPresent()){
+                    Tournament tournament = tournamentRepo.findById(tournamentId).get();
+                    tournament.removePlayer(userRepo.findById(userId).get());
+                    tournamentRepo.save(tournament);
+                    System.out.println("User " + userId + " has been removed from course " + tournamentId);
+                }
+                else {
+                    return ;
+                }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                return ;
+            }
+        }
     }
 }

@@ -6,6 +6,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -43,6 +45,9 @@ public class User {
     @Column
     @NotNull
     private Integer account;
+
+    @ManyToMany(mappedBy = "players")
+    private List<Tournament> tournaments = new ArrayList<Tournament>();
 
     public User(){}
 
@@ -111,6 +116,14 @@ public class User {
         this.account = account;
     }
 
+    public List<Tournament> getTournaments() {
+        return tournaments;
+    }
+
+    public void setTournaments(List<Tournament> tournaments) {
+        this.tournaments = tournaments;
+    }
+
     public void addToAccount(Integer sum){
         this.account += sum;
     }
@@ -122,6 +135,14 @@ public class User {
         }
         this.account -= sum;
         return Boolean.TRUE;
+    }
+
+    public void enrollInTournament(Tournament tournament){
+        this.getTournaments().add(tournament);
+    }
+
+    public void disenrollFromTournament(Tournament tournament){
+        this.getTournaments().remove(tournament);
     }
 
     @Override

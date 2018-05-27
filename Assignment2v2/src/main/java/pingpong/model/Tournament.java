@@ -43,6 +43,16 @@ public class Tournament {
     @OneToMany(mappedBy="tournament")
     private List<Match> matches = new ArrayList<Match>();
 
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "Tournament_User",
+            joinColumns = { @JoinColumn(name = "tournament_id") },
+            inverseJoinColumns = { @JoinColumn(name = "user_id") }
+    )
+    List<User> players  = new ArrayList<User>();
+
+    private static final Integer maxPlayers = 8;
+
     public Tournament(){}
 
     public Tournament(Integer id, String name, Date endDate, Date startDate, TournamentFee tournamentFee, Integer tournamentPrice) {
@@ -123,6 +133,28 @@ public class Tournament {
         }
         System.out.println("[ERROR] in processing tournament time category");
         return TournamentCategory.FINISHED;
+    }
+
+    public Boolean addNewPlayer(User player){
+        if (players.size() == maxPlayers){
+            System.out.println("[ERROR] could not enroll in tournament since tournament " + this.getName() + " is full.");
+            return Boolean.FALSE;
+        }
+        else if(players.contains(player)){
+            System.out.println("[ERROR] player already enrolled in tournament.");
+            return Boolean.FALSE;
+        }
+        players.add(player);
+        return Boolean.TRUE;
+    }
+
+    public void removePlayer(User player){
+        if (players.contains(player)) {
+            players.remove(player);
+        }
+        else{
+            System.out.println("[ERROR] player isn't enrolled in tournament.");
+        }
     }
 
     @Override
