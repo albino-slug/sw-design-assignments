@@ -106,4 +106,7 @@ public class UserViewTournamentsController {
 //    }
 
     //TODO list all tournaments in which logged user is enrolled
+
+
+    // jdvbaksfhbkudafbvjhdbvmhdvbjdhvbjshbvs
 }
